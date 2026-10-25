@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZapFare — 100% Free India Bus & Seat Net-Fare Meta-Aggregator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Sticky Navigation Bar -->
+  <header class="top-navbar">
+    <div class="nav-inner">
+      <div class="brand-logo">
+        <div class="zap-icon">⚡</div>
+        <div>
+          <h1>Zap<span>Fare</span></h1>
+          <div style="font-size: 11px; color: #94A3B8;">Every App • Every Coupon • Exact Seat • 100% Free</div>
+        </div>
+      </div>
+
+      <div class="mode-pills">
+        <div class="mode-pill active">🚌 Intercity Buses (Live)</div>
+        <div class="mode-pill" onclick="showToast('✈️ ZapFare Flights (with Seat + Card Stacking) coming next phase!')">✈️ Flights (Soon)</div>
+      </div>
+
+      <div class="p2p-network-pill">
+        <span class="pulse-dot"></span>
+        <span>Zero-Server P2P Cache: <strong>1,428 Peers Online</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Top Control Grid: Route Selector + My Cards/Wallets -->
+    <section class="control-grid">
+      <div class="card-box">
+        <div class="section-label">
+          <span>1. Select Route & Travel Date</span>
+          <span style="color:#34D399;font-size:11px;">● Client-Side Engine Ready</span>
+        </div>
+
+        <div class="route-select-row">
+          <select id="routeSelect" class="route-dropdown">
+            <option value="BLR-HYD">Bangalore → Hyderabad (575 km)</option>
+            <option value="BLR-CHE">Bangalore → Chennai (350 km)</option>
+            <option value="PUN-MUM">Pune → Mumbai (150 km)</option>
+          </select>
+          <div id="activeDateBadge" class="date-badge">27 Oct (Tue)</div>
+        </div>
+
+        <div class="toggles-row">
+          <label class="toggle-label">
+            <input type="checkbox" id="passMathToggle" checked />
+            <span>🎫 Auto-Include Bus Pass Math (Primo/SuperPass)</span>
+          </label>
+          <label class="toggle-label">
+            <input type="checkbox" id="crashSimToggle" />
+            <span>🕔 Simulate 5:30 PM "Empty-Bus Price Crash" (-25% to -32%)</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="card-box">
+        <div class="section-label">
+          <span>2. My Bank Cards & UPI Wallets (Tap to Toggle Your Stack)</span>
+          <button onclick="resetDeadCoupons()" style="background:none;border:none;color:#60A5FA;font-size:11px;cursor:pointer;font-weight:600;">
+            🔄 Reset Killed Coupons
+          </button>
+        </div>
+        <div id="walletChips" class="wallet-chips-wrap"></div>
+      </div>
+    </section>
+
+    <!-- Monthly Best-Date Heatmap -->
+    <section class="card-box heatmap-section">
+      <div class="section-label">
+        <span>📅 30-Day Best Date to Travel Heatmap (Crowdsourced from Peer Searches)</span>
+        <span style="font-size:11px;color:#A7F3D0;">🟢 Green = Cheapest Days • 🔴 Red = Festival/Weekend Surge</span>
+      </div>
+      <div id="heatmapGrid" class="heatmap-grid"></div>
+    </section>
+
+    <!-- Split-Route / Passing-Through Hack Banner -->
+    <div id="routeHackBanner" class="route-hack-banner"></div>
+
+    <!-- Bus Results & Interactive Seat + Platform Comparator -->
+    <section id="busListContainer"></section>
+
+    <!-- Local Price-Drop & 5 PM Crash Alert Watcher -->
+    <section class="alerts-grid">
+      <div class="card-box">
+        <div class="section-label">🔔 Set Zero-Server Local Price Drop Alert</div>
+        <p style="font-size:12px;color:#94A3B8;">
+          Runs silently via Android <code>WorkManager</code> on your phone every 4 hours. Alerts you when a flash coupon or 5 PM empty-bus crash drops net price below your target.
+        </p>
+        <div class="alert-form-row">
+          <input type="number" id="alertPriceInput" class="price-input" value="780" placeholder="Target ₹" />
+          <button id="addAlertBtn" class="zap-book-btn btn-primary-zap" style="width:auto;padding:9px 18px;">
+            + Activate Local Radar
+          </button>
+        </div>
+      </div>
+
+      <div class="card-box">
+        <div class="section-label">📡 Active On-Device Radar Watchlist</div>
+        <div id="alertsList"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- On-Device AI Checkout Assistant Modal -->
+  <div id="aiCheckoutModal" class="modal-backdrop">
+    <div id="aiModalBody" class="modal-card"></div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastBox" class="toast-box"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
